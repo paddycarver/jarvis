@@ -10,7 +10,7 @@ Resource files are machine-readable files that define the resources made availab
   "id": "message",
   "name": "Message",
   "description": "A small chunk of data that is meant to be processed.",
-  "parent": "queue",
+  "parent": "mq.queue",
   "url_slug": "messages",
   "properties": [
     {
@@ -49,7 +49,7 @@ The properties of the resource object determine the resource's behaviour and pro
 <tr><td>id</td><td>Yes</td><td>An API-unique ID for the resource.</td></tr>
 <tr><td>name</td><td>Yes</td><td>A human-friendly name for the resource.</td></tr>
 <tr><td>description</td><td>Yes</td><td>A human-friendly description of the resource.</td></tr>
-<tr><td>parent</td><td>No</td><td>The ID of the resource this resource is a child of, if this resource has a parent.</td></tr>
+<tr><td>parent</td><td>No</td><td>The ID of the resource this resource is a child of, if this resource has a parent. The ID must be in the form &quot;{API ID}.{RESOURCE ID}&quot;.</td></tr>
 <tr><td>url_slug</td><td>Yes</td><td>The slug that will be used when constructing URLs for this resource.</td></tr>
 <tr><td>properties</td><td>Yes</td><td>Property objects describing the properties of the resource.</td></tr>
 <tr><td>interactions</td><td>No</td><td>Interaction objects describing the possible actions that can be performed against the resource.</td></tr>
@@ -82,4 +82,5 @@ Interaction objects have their own properties, describing the constraints and re
 <tr><td>omitted_output_fields</td><td>No</td><td>A list of field IDs that will be emptied before returning a resource as output (as in a response).</td></tr>
 <tr><td>rejected_output_fields</td><td>No</td><td>A list of field IDs that will cause a server error if they are populated as part of output.</td></tr>
 <tr><td>required_output_fields</td><td>No</td><td>A list of field IDs that will cause a server error if they cannot be populated as part of output.</td></tr>
+<tr><td>input_source</td><td>No</td><td>The source of the input. If the input source is set to &quot;body&quot;, the input will be JSON-encoded in the body of the request. If the input source is set to &quot;URL&quot;, the input will be URL-encoded in the URL of the request.</td></tr>
 </table>
