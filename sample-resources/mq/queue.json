@@ -1,0 +1,25 @@
+{
+  "_version": "0.1.0",
+  "id": "queue",
+  "name": "Queue",
+  "description": "An ordered set of messages that messages can be added to or pulled off of.",
+  "url_slug": "queues",
+  "parent": "common.project",
+  "properties": [
+    {
+      "id": "name",
+      "type": "string",
+      "description": "A unique identifier for the queue.",
+      "required": true
+    }
+  ],
+  "interactions": [
+    {
+      "id": "delete",
+      "verb": "destroy",
+      "description": "Destroy a queue and all its messages.",
+      "input_source": "url",
+      "required_input_properties": "name"
+    }
+  ]
+}
