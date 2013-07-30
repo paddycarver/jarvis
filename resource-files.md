@@ -4,39 +4,40 @@ Resource files are machine-readable files that define the resources made availab
 
 ## Sample
 
-	:::json
-	{
-	  "_version": "0.1.0",
-	  "id": "message",
-	  "name": "Message",
-	  "description": "A small chunk of data that is meant to be processed.",
-	  "parent": "queue",
-	  "url_slug": "messages",
-	  "properties": [
-	    {
-	      "id": "id",
-	      "type": "string",
-	      "description": "A unique identifier for the message.",
-	      "required": false,
-	      "format": "{regular expression}"
-	    },
-	    {
-	      "id": "body",
-	      "type": "binary",
-	      "description": "The data that is meant to be processed.",
-	      "required": true,
-	      "maximum": 65536
-	    }
-	  ],
-	  "interactions": [
-	    {
-	      "id": "push",
-	      "verb": "create",
-	      "description": "Push a message onto the end of the queue.",
-	      "omitted_input_fields": ["id"]
-	    }
-	  ]
-	}
+```json
+{
+  "_version": "0.1.0",
+  "id": "message",
+  "name": "Message",
+  "description": "A small chunk of data that is meant to be processed.",
+  "parent": "queue",
+  "url_slug": "messages",
+  "properties": [
+    {
+      "id": "id",
+      "type": "string",
+      "description": "A unique identifier for the message.",
+      "required": false,
+      "format": "{regular expression}"
+    },
+    {
+      "id": "body",
+      "type": "binary",
+      "description": "The data that is meant to be processed.",
+      "required": true,
+      "maximum": 65536
+    }
+  ],
+  "interactions": [
+    {
+      "id": "push",
+      "verb": "create",
+      "description": "Push a message onto the end of the queue.",
+      "omitted_input_fields": ["id"]
+    }
+  ]
+}
+```
 
 ## Properties
 
