@@ -75,14 +75,14 @@ The properties of the resource object determine the resource's behaviour and pro
 
 <table>
 <tr><th>Field</th><th>Required</th><th>Description</th></tr>
-<tr><td>_version</td><td>Yes</td><td>The version of the resource file syntax to use when reading the syntax file.</td></tr>
-<tr><td>id</td><td>Yes</td><td>An API-unique ID for the resource.</td></tr>
+<tr><td>id</td><td>Yes</td><td>An API-unique ID for the resource. Will be used as the key for this resource in request and response objects.</td></tr>
 <tr><td>name</td><td>Yes</td><td>A human-friendly name for the resource.</td></tr>
 <tr><td>description</td><td>Yes</td><td>A human-friendly description of the resource.</td></tr>
 <tr><td>parent</td><td>No</td><td>The ID of the resource this resource is a child of, if this resource has a parent. The ID must be in the form &quot;{API ID}/{RESOURCE ID}&quot;.</td></tr>
 <tr><td>parent_is_collection</td><td>No</td><td>When set to &quot;true&quot;, the parent's slug will not be used when constructing a URL. Instead, the parent's prefix will immediately precede this resource's prefix.</td></tr>
 <tr><td>url_slug</td><td>Yes</td><td>The property whose value will be used as a slug when constructing URLs for this resource.</td></tr>
 <tr><td>url_prefix</td><td>Yes</td><td>The URL prefix that will precede the slug. This should be a short slug that describes the collection of resources.</td></tr>
+<tr><td>plural_id</td><td>No</td><td>The plural form of the id for this resource, to be used as the key for this resource in request and response objects containing more than one of the resource. If not set, defaults to url_prefix.</td></tr>
 <tr><td>properties</td><td>Yes</td><td>Property objects describing the properties of the resource.</td></tr>
 <tr><td>interactions</td><td>No</td><td>Interaction objects describing the possible actions that can be performed against the resource.</td></tr>
 </table>
@@ -100,6 +100,7 @@ Property objects have their own properties, describing the constraints of the pr
 <tr><td>default</td><td>No</td><td>A default value that will be used if the property is omitted. Properties without a default value are considered required and will cause a request to be considered invalid if they are not specified.</td></tr>
 <tr><td>value_type</td><td>No</td><td>For pointers, the type of the value the pointer is pointing to. Requests pointing to other types will be considered invalid.</td></tr>
 <tr><td>permissions</td><td>No</td><td>An array of permissions (&quot;r&quot; for read, &quot;w&quot; for write) that clients have for this property.</td></tr>
+<tr><td>repeated</td><td>No</td><td><strong>Used only in URL parameters.</strong> If set to true, the param is expected to be repeated (e.g., ?param=a&param=b&param=c).</td></tr>
 </table>
 
 Interaction objects have their own properties, describing the constraints and requirements of the interaction:
@@ -108,6 +109,7 @@ Interaction objects have their own properties, describing the constraints and re
 <tr><th>Field</th><th>Required</th><th>Description</th></tr>
 <tr><td>id</td><td>Yes</td><td>A resource-unique ID for the interaction.</td></tr>
 <tr><td>verb</td><td>Yes</td><td>A description of what the interaction does to the resource. Accepted values are: create, get, list, update, destroy</td></tr>
+<tr><td>accept_many</td><td>No</td><td>If set to &quot;true&quot;, the request will expect an array of objects in the request, not just one.</td></tr>
 <tr><td>description</td><td>Yes</td><td>A human-friendly description of the interaction.</td></tr>
 <tr><td>params</td><td>No</td><td>An array of property objects describing URL parameters that are accepted or required for this request.</td></tr>
 </table>

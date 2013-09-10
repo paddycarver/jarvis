@@ -67,7 +67,7 @@ func (r Resource) BuildPathPieces(i *Interaction) []string {
 		}
 	}
 	pieces = append(pieces, r.URLPrefix)
-	if i == nil || !expectSlug(i.Verb) {
+	if i == nil || !expectSlug(i.Verb) || i.AcceptMany {
 		return pieces
 	}
 	pieces = append(pieces, "{"+r.URLSlug+"}")

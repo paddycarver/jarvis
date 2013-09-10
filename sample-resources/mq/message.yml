@@ -48,6 +48,15 @@ interactions:
 - id: delete
   verb: destroy
   description: Remove a message from the queue.
+- id: clear
+  verb: destroy
+  accept_many: true
+  description: Remove multiple messages from the queue. If no IDs are specified, all messages on the queue will be deleted.
+  params:
+  - id: id
+    type: string
+    description: The ID of a message to be deleted.
+    repeated: true
 - id: peek
   verb: list
   description: Retrieve messages from the queue without reserving them.

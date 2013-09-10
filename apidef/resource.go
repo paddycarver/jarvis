@@ -33,6 +33,7 @@ type Property struct {
 	Maximum     int           `yaml:"maximum,omitempty"`
 	Minimum     int           `yaml:"minimum,omitempty"`
 	Permissions []string      `yaml:"permissions,omitempty"` // Permissions clients have for this property. Acceptable values: r, w
+	Repeated    bool          `yaml:"repeated,omitempty"`    // If this property can appear more than once in URL parameters
 }
 
 // An Interaction is the definition of a specific action that can be performed against a resource using the API. It contains the information and constraints of that action.
@@ -40,7 +41,9 @@ type Interaction struct {
 	ID          string     `yaml:"id"`
 	Verb        string     `yaml:"verb"`
 	Description string     `yaml:"description"`
-	Params      []Property `yaml:"params,omitempty"` // Properties passed as URL params
+	Params      []Property `yaml:"params,omitempty"`      // Properties passed as URL params
+	AcceptMany  bool       `yaml:"accept_many,omitempty"` // expect an array, not a single resource
+
 }
 
 // ParseFile will read the specified resource file and parse it into a Resource, which is then returned.
