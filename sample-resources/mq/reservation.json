@@ -1,0 +1,69 @@
+{
+  "_version": "0.1.0",
+  "id": "reservation",
+  "name": "Reservation",
+  "description": "A lock on a message that prevents another client from retrieving the message for a short duration.",
+  "url_prefix": "reservations",
+  "url_slug": "id",
+  "parent": "mq/message",
+  "parent_is_collection": true,
+  "properties": [
+    {
+      "id": "id",
+      "type": "string",
+      "description": "A unique, API-generated identifier for this resource.",
+      "permissions": ["r"]
+    },
+    {
+      "id": "message_id",
+      "type": "string",
+      "description": "A unique, API-generated identifier that points to the message this reservation is locking.",
+      "permissions": ["r"]
+    },
+    {
+      "id": "timeout",
+      "type": "duration",
+      "default": 60,
+      "minimum": 30,
+      "maximum": 86400,
+      "description": "The amount of time this reservation lasts before the lock on the message will be released.",
+      "permissions": ["r", "w"]
+    }
+  ],
+  "interactions": [
+    {
+      "id": "release",
+      "verb": "destroy",
+      "description": "Release a reservation, removing the lock on the message prematurely."
+    },
+    {
+      "id": "reserve",
+      "verb": "create",
+      "description": "Reserve a message, creating a lock on it that will prevent other clients from retrieving it for a short duration."
+    },
+    {
+      "id": "touch",
+      "verb": "update",
+      "description": "Extend the timeout on a message, delaying its automatic expiration."
+    },
+    {
+      "id": "get",
+      "verb": "get",
+      "description": "Retrieve the message and reservation information again."
+    },
+    {
+      "id": "history",
+      "verb": "list",
+      "description": "Retrieve a log of past reservations for the given message.",
+      "params": [
+        {
+          "id": "n",
+          "type": "int",
+          "default": 1,
+          "maximum": 100,
+          "description": "The maximum number of reservations to return."
+        }
+      ]
+    }
+  ]
+}

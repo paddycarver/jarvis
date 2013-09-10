@@ -6,11 +6,18 @@ import (
 )
 
 func main() {
-	resources, err := apidef.Parse("sample-resources/mq")
+	resources, err := apidef.Parse("sample-resources/", "mq")
 	if err != nil {
 		panic(err)
 	}
-	for k, v := range resources {
-		fmt.Printf("%s: %s\n", k, v.Description)
+	for id, resource := range resources {
+    endpoints := resource.BuildEndpoints()
+    if len(endpoints) < 1 {
+      continue
+    }
+		fmt.Printf("\n%s (%s)\n", resource.Name, id)
+    for _, endpoint := range endpoints {
+      fmt.Printf("\t%s /%s\t%s\n", endpoint.Verb, endpoint.Path, endpoint.Description)
+    }
 	}
 }

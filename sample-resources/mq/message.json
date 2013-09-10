@@ -4,8 +4,8 @@
   "name": "Message",
   "description": "A string of data that is meant to be processed.",
   "url_prefix": "messages",
-  "url_slug": "id"
-  "parent": "mq.queue",
+  "url_slug": "id",
+  "parent": "mq/queue",
   "properties": [
     {
       "id": "id",

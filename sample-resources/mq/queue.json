@@ -4,8 +4,8 @@
   "name": "Queue",
   "description": "An ordered set of messages that messages can be added to or pulled off of.",
   "url_prefix": "queues",
-  "url_slug": "name"
-  "parent": "common.project",
+  "url_slug": "name",
+  "parent": "common/project",
   "properties": [
     {
       "id": "id",
@@ -22,7 +22,7 @@
     {
       "id": "push_type",
       "type": "string",
-      "values': ["pull", "multicast", "unicast"],
+      "values": ["pull", "multicast", "unicast"],
       "default": "pull",
       "description": "How messages will be removed from the queue. Pull queues store messages until they're asked for by a client. Multicast queues send HTTP callbacks to each subscriber to deliver messages. Unicast queues send a single HTTP callback to a subscriber chosen at random.",
       "permissions": ["r", "w"]
@@ -34,7 +34,7 @@
       "maximum": 100,
       "minimum": 0,
       "description": "The number of times an HTTP callback should be retried for push queues.",
-      "permissions": ["r", "w"],
+      "permissions": ["r", "w"]
     },
     {
       "id": "retries_delay",
@@ -43,7 +43,7 @@
       "maximum": 86400,
       "minimum": 30,
       "description": "The number of seconds each retry of the HTTP callback should be delayed for push queues.",
-      "permissions": ["r", "w"],
+      "permissions": ["r", "w"]
     }
   ],
   "interactions": [
@@ -78,6 +78,11 @@
       "id": "get",
       "verb": "get",
       "description": "Retrieve information about a queue."
+    },
+    {
+      "id": "create",
+      "verb": "create",
+      "description": "Create a new queue in the project."
     },
     {
       "id": "update",
