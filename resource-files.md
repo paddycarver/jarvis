@@ -111,7 +111,7 @@ Interaction objects have their own properties, describing the constraints and re
 <table>
 <tr><th>Field</th><th>Required</th><th>Description</th></tr>
 <tr><td>id</td><td>Yes</td><td>A resource-unique ID for the interaction.</td></tr>
-<td><td>name</td><td>Yes</td><td>A human-friendly identified for the interaction.</td></tr>
+<tr><td>name</td><td>Yes</td><td>A human-friendly identified for the interaction.</td></tr>
 <tr><td>verb</td><td>Yes</td><td>A description of what the interaction does to the resource. Accepted values are: create, get, list, update, destroy</td></tr>
 <tr><td>accept_many</td><td>No</td><td>If set to &quot;true&quot;, the request will expect an array of objects in the request, not just one.</td></tr>
 <tr><td>description</td><td>Yes</td><td>A human-friendly description of the interaction.</td></tr>
