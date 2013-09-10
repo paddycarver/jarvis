@@ -57,6 +57,7 @@ interactions:
     type: string
     description: The ID of a message to be deleted.
     repeated: true
+    default: ""
 - id: peek
   verb: list
   description: Retrieve messages from the queue without reserving them.
