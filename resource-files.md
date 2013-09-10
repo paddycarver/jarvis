@@ -66,7 +66,8 @@ interactions:
     maximum: 100
 - id: push
   verb: create
-  description: Add messages to the end of the queue.```
+  description: Add messages to the end of the queue.
+```
 
 ## Properties
 
