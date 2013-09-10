@@ -55,9 +55,11 @@ interactions:
 - id: delete
   verb: destroy
   description: Remove a message from the queue.
+  name: Delete a Message
 - id: peek
   verb: list
   description: Retrieve messages from the queue without reserving them.
+  name: Peek at Messages
   params:
   - id: "n"
     type: int
@@ -67,6 +69,7 @@ interactions:
 - id: push
   verb: create
   description: Add messages to the end of the queue.
+  name: Push Messages
 ```
 
 ## Properties
@@ -108,6 +111,7 @@ Interaction objects have their own properties, describing the constraints and re
 <table>
 <tr><th>Field</th><th>Required</th><th>Description</th></tr>
 <tr><td>id</td><td>Yes</td><td>A resource-unique ID for the interaction.</td></tr>
+<td><td>name</td><td>Yes</td><td>A human-friendly identified for the interaction.</td></tr>
 <tr><td>verb</td><td>Yes</td><td>A description of what the interaction does to the resource. Accepted values are: create, get, list, update, destroy</td></tr>
 <tr><td>accept_many</td><td>No</td><td>If set to &quot;true&quot;, the request will expect an array of objects in the request, not just one.</td></tr>
 <tr><td>description</td><td>Yes</td><td>A human-friendly description of the interaction.</td></tr>

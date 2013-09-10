@@ -38,7 +38,7 @@ func main() {
 			if querystring != "" {
 				querystring = "?" + querystring
 			}
-			fmt.Fprintf(w, "\t%s /%s\t%s\n", endpoint.Verb, endpoint.Path+querystring, endpoint.Description)
+			fmt.Fprintf(w, "\t%s /%s\t%s\n", endpoint.Verb, endpoint.Path+querystring, endpoint.Name)
 		}
 	}
 	w.Flush()

@@ -39,6 +39,7 @@ type Property struct {
 // An Interaction is the definition of a specific action that can be performed against a resource using the API. It contains the information and constraints of that action.
 type Interaction struct {
 	ID          string     `yaml:"id"`
+	Name        string     `yaml:"name"`
 	Verb        string     `yaml:"verb"`
 	Description string     `yaml:"description"`
 	Params      []Property `yaml:"params,omitempty"`      // Properties passed as URL params

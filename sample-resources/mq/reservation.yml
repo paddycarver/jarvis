@@ -30,24 +30,19 @@ properties:
   - w
 interactions:
 - id: release
+  name: Release a Message
   verb: destroy
   description: Release a reservation, removing the lock on the message prematurely.
 - id: reserve
+  name: Get a Message
   verb: create
   description: Reserve a message, creating a lock on it that will prevent other clients
     from retrieving it for a short duration.
 - id: touch
+  name: Touch a Message
   verb: update
   description: Extend the timeout on a message, delaying its automatic expiration.
 - id: get
+  name: Get Reservation Information
   verb: get
   description: Retrieve the message and reservation information again.
-- id: history
-  verb: list
-  description: Retrieve a log of past reservations for the given message.
-  params:
-  - id: "n"
-    type: int
-    description: The maximum number of reservations to return.
-    default: 1
-    maximum: 100

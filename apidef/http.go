@@ -10,6 +10,7 @@ type Endpoint struct {
 	Path           string
 	Params         []Property
 	Description    string
+	Name           string
 	SampleRequest  []byte
 	SampleResponse []byte
 }
@@ -51,6 +52,7 @@ func (r Resource) BuildEndpoints() []Endpoint {
 		// TODO: generate sample response body and store it in endpoints[i].SampleResponse
 		endpoints[i].Verb = getHTTPVerb(interaction.Verb)
 		endpoints[i].Description = interaction.Description
+		endpoints[i].Name = interaction.Name
 		endpoints[i].Params = interaction.Params
 		endpoints[i].Path = r.BuildPath(&interaction)
 	}

@@ -46,9 +46,11 @@ properties:
   - w
 interactions:
 - id: delete
+  name: Delete a Message
   verb: destroy
   description: Remove a message from the queue.
 - id: clear
+  name: Delete Messages
   verb: destroy
   accept_many: true
   description: Remove multiple messages from the queue. If no IDs are specified, all messages on the queue will be deleted.
@@ -59,6 +61,7 @@ interactions:
     repeated: true
     default: ""
 - id: peek
+  name: Peek at Messages
   verb: list
   description: Retrieve messages from the queue without reserving them.
   params:
@@ -68,5 +71,7 @@ interactions:
     default: 1
     maximum: 100
 - id: push
+  name: Push Messages
   verb: create
   description: Add messages to the end of the queue.
+  accept_many: true

@@ -52,6 +52,7 @@ properties:
 interactions:
 - id: list
   verb: list
+  name: List Queues
   description: Retrieve a list of queues in the project.
   params:
   - id: page
@@ -65,14 +66,18 @@ interactions:
     maximum: 100
     minimum: 1
 - id: delete
+  name: Delete a Queue
   verb: destroy
   description: Destroy a queue and all of its messages.
 - id: get
+  name: Get Queue Info
   verb: get
   description: Retrieve information about a queue.
 - id: create
+  name: Create Queue
   verb: create
   description: Create a new queue in the project.
 - id: update
+  name: Update Queue Info
   verb: update
   description: Update the information about a queue.

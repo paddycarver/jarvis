@@ -8,6 +8,11 @@ url_prefix: webhook
 properties: []
 interactions:
 - id: create
+  name: Push Message From Webhook
   verb: create
   description: Use the body of the request as a message that will be pushed to the
     queue.
+  params:
+  - id: oauth
+    type: string
+    description: An OAuth token that can authenticate this request.
