@@ -1,9 +1,9 @@
 package apidef
 
 import (
-	"encoding/json"
 	"errors"
 	"io/ioutil"
+	"launchpad.net/goyaml"
 	"os"
 	"path/filepath"
 	"strings"
@@ -11,36 +11,36 @@ import (
 
 // A Resource is a representation of a resource that can be manipulated through an API.
 type Resource struct {
-	ID                 string        `json:"id"`
-	Name               string        `json:"name"`
-	Description        string        `json:"description"`
-	Parent             *Resource     `json:"-"`
-	ParentString       string        `json:"parent,omitempty"`
-	ParentIsCollection bool          `json:"parent_is_collection,omitempty"`
-	URLSlug            string        `json:"url_slug"`
-	URLPrefix          string        `json:"url_prefix"`
-	Properties         []Property    `json:"properties"`
-	Interactions       []Interaction `json:"interactions,omitempty"`
+	ID                 string        `yaml:"id"`
+	Name               string        `yaml:"name"`
+	Description        string        `yaml:"description"`
+	Parent             *Resource     `yaml:"-"`
+	ParentString       string        `yaml:"parent,omitempty"`
+	ParentIsCollection bool          `yaml:"parent_is_collection,omitempty"`
+	URLSlug            string        `yaml:"url_slug"`
+	URLPrefix          string        `yaml:"url_prefix"`
+	Properties         []Property    `yaml:"properties"`
+	Interactions       []Interaction `yaml:"interactions,omitempty"`
 }
 
 // A Property is a definition of a specific field or property in a resource being returned by an API. It contains the information and constraints about the field.
 type Property struct {
-	ID          string        `json:"id"`
-	Type        string        `json:"type"`
-	Description string        `json:"description"`
-	Values      []interface{} `json:"values,omitempty"`  // A list of acceptable values
-	Default     interface{}   `json:"default,omitempty"` // The default value, if this property is optional
-	Maximum     int           `json:"maximum,omitempty"`
-	Minimum     int           `json:"minimum,omitempty"`
-	Permissions []string      `json:"permissions,omitempty"` // Permissions clients have for this property. Acceptable values: r, w
+	ID          string        `yaml:"id"`
+	Type        string        `yaml:"type"`
+	Description string        `yaml:"description"`
+	Values      []interface{} `yaml:"values,omitempty"`  // A list of acceptable values
+	Default     interface{}   `yaml:"default,omitempty"` // The default value, if this property is optional
+	Maximum     int           `yaml:"maximum,omitempty"`
+	Minimum     int           `yaml:"minimum,omitempty"`
+	Permissions []string      `yaml:"permissions,omitempty"` // Permissions clients have for this property. Acceptable values: r, w
 }
 
 // An Interaction is the definition of a specific action that can be performed against a resource using the API. It contains the information and constraints of that action.
 type Interaction struct {
-	ID          string     `json:"id"`
-	Verb        string     `json:"verb"`
-	Description string     `json:"description"`
-	Params      []Property `json:"params,omitempty"` // Properties passed as URL params
+	ID          string     `yaml:"id"`
+	Verb        string     `yaml:"verb"`
+	Description string     `yaml:"description"`
+	Params      []Property `yaml:"params,omitempty"` // Properties passed as URL params
 }
 
 // ParseFile will read the specified resource file and parse it into a Resource, which is then returned.
@@ -50,7 +50,7 @@ func ParseFile(path string) (Resource, error) {
 		return Resource{}, err
 	}
 	var resource Resource
-	err = json.Unmarshal(content, &resource)
+	err = goyaml.Unmarshal(content, &resource)
 	if err != nil {
 		return Resource{}, err
 	}
@@ -66,8 +66,8 @@ func createImportList(root, path string) (map[string]string, error) {
 		if info.IsDir() {
 			return nil // skip sub-directories
 		}
-		if !strings.HasSuffix(p, ".json") {
-			return nil // skip non-json files
+		if !strings.HasSuffix(p, ".yml") {
+			return nil // skip non-yaml files
 		}
 		results[strings.TrimPrefix(p, root)] = p
 		return nil
