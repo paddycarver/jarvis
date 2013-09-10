@@ -4,7 +4,7 @@ Resource files are machine-readable files that define the resources made availab
 
 ## Sample
 
-```yaml
+```yml
 id: message
 name: Message
 description: A string of data that is meant to be processed.
