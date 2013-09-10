@@ -1,0 +1,13 @@
+id: webhook
+name: Webhook
+description: An input that will create a message out of whatever request it receives.
+parent: mq/message
+parent_is_collection: true
+url_slug: ""
+url_prefix: webhook
+properties: []
+interactions:
+- id: create
+  verb: create
+  description: Use the body of the request as a message that will be pushed to the
+    queue.

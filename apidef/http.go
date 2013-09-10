@@ -6,7 +6,7 @@ import (
 
 // An Endpoint is a representation of an HTTP endpoint, the requests it expects, and the responses it can generate.
 type Endpoint struct {
-  Verb           string
+	Verb           string
 	Path           string
 	Params         []Property
 	Description    string
@@ -25,20 +25,20 @@ func expectSlug(verb string) bool {
 }
 
 func getHTTPVerb(verb string) string {
-  verb = strings.ToLower(verb)
-  switch verb {
-  case "list":
-    return "GET"
-  case "get":
-    return "GET"
-  case "update":
-    return "PUT"
-  case "create":
-    return "POST"
-  case "destroy":
-    return "DELETE"
-  }
-  return ""
+	verb = strings.ToLower(verb)
+	switch verb {
+	case "list":
+		return "GET"
+	case "get":
+		return "GET"
+	case "update":
+		return "PUT"
+	case "create":
+		return "POST"
+	case "destroy":
+		return "DELETE"
+	}
+	return ""
 }
 
 // BuildEndpoints examines the resource it is called on and uses its properties to create and return a slice of endpoints.
@@ -49,7 +49,7 @@ func (r Resource) BuildEndpoints() []Endpoint {
 			// TODO: generate sample body and store it in endpoints[i].SampleRequest
 		}
 		// TODO: generate sample response body and store it in endpoints[i].SampleResponse
-    endpoints[i].Verb = getHTTPVerb(interaction.Verb)
+		endpoints[i].Verb = getHTTPVerb(interaction.Verb)
 		endpoints[i].Description = interaction.Description
 		endpoints[i].Params = interaction.Params
 		endpoints[i].Path = r.BuildPath(&interaction)
@@ -62,9 +62,9 @@ func (r Resource) BuildPathPieces(i *Interaction) []string {
 	var pieces []string
 	if r.Parent != nil {
 		pieces = append(pieces, r.Parent.BuildPathPieces(nil)...)
-    if !r.ParentIsCollection {
-      pieces = append(pieces, "{"+r.Parent.URLSlug+"}")
-    }
+		if !r.ParentIsCollection {
+			pieces = append(pieces, "{"+r.Parent.URLSlug+"}")
+		}
 	}
 	pieces = append(pieces, r.URLPrefix)
 	if i == nil || !expectSlug(i.Verb) {

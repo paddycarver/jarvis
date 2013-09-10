@@ -1,0 +1,18 @@
+id: project
+name: Project
+description: A namespace for Iron.io services, meant to correspond to a single project
+  or product.
+url_slug: id
+url_prefix: projects
+properties:
+- id: id
+  type: string
+  description: A unique, API-generated identifier for this resource.
+  permissions:
+  - r
+- id: name
+  type: string
+  description: A human-readable label for this project.
+  permissions:
+  - r
+  - w
