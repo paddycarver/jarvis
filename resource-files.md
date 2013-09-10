@@ -121,5 +121,5 @@ Interaction objects have their own properties, describing the constraints and re
 <tr><td>id</td><td>Yes</td><td>A resource-unique ID for the interaction.</td></tr>
 <tr><td>verb</td><td>Yes</td><td>A description of what the interaction does to the resource. Accepted values are: create, get, list, update, destroy</td></tr>
 <tr><td>description</td><td>Yes</td><td>A human-friendly description of the interaction.</td></tr>
-<tr<td>params</td><td>No</td><td>An array of property objects describing URL parameters that are accepted or required for this request.</td></tr>
+<tr><td>params</td><td>No</td><td>An array of property objects describing URL parameters that are accepted or required for this request.</td></tr>
 </table>
