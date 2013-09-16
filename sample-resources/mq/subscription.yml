@@ -1,0 +1,50 @@
+id: subscription
+name: Subscription
+description: The status information about a subscriber for each message.
+parent: mq/message
+url_slug: id
+url_prefix: subscriptions
+properties:
+- id: id
+  type: string
+  description: A unique, API-generated identifier for this resource.
+  permissions:
+  - r
+- id: retries_delay
+  type: duration
+  description: When a push fails, this duration specifies the delay before the push will be retried.
+  permissions:
+  - r
+- id: retries_remaining
+  type: int
+  description: The number of times a push message will be retried before it is considered failed permanently.
+  permissions:
+  - r
+- id: status_code
+  type: int
+  description: The HTTP status code returned by the subscriber on the last push.
+  permissions:
+  - r
+- id: status
+  type: string
+  description: A string describing the status of the subscription.
+  permissions:
+  - r
+- id: url
+  type: string
+  description: The URL of the subscriber this subscription belongs to.
+  permissions:
+  - r
+interactions:
+- id: list
+  name: List Subscriptions
+  verb: list
+  description: Retrieve the subscription information for a particular message, which 
+    will give you information about whether a subscriber has received a message or if there 
+    is an error.
+- id: acknowledge
+  name: Acknowledge a Push Message
+  verb: destroy
+  description: Acknowledge a push message that was previously given a 202 response by the subscriber. 
+    Note that subscribers that return a 200 response automatically acknowledge the push messages and 
+    therefore do not need to send an acknowledgement.

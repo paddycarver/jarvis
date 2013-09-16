@@ -1,0 +1,29 @@
+id: subscriber
+name: Subscriber
+description: A client interested in receiving push messages from this queue.
+parent: mq/queue
+url_slug: url
+url_prefix: subscribers
+properties:
+- id: url
+  type: string
+  description: The URL endpoint push messages should be POSTed to.
+  permissions:
+  - r
+  - w
+interactions:
+- id: add
+  name: Add Subscribers
+  verb: create
+  accept_many: true
+  description: Add subscribers to a queue, converting it to a push queue if it is 
+    currently a pull queue.
+- id:  remove
+  name: Remove Subscribers
+  verb: destroy
+  accept_many: true
+  description: Remove subscribers from a queue.
+- id: list
+  name: List Subscribers
+  verb: list
+  description: List the subscribers currently receiving push messages from the queue.
