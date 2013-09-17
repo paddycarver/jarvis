@@ -1,10 +1,10 @@
 package main
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"github.com/iron-io/jarvis/apidef"
-	"os"
-	"text/tabwriter"
 )
 
 func main() {
@@ -12,14 +12,15 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	w := new(tabwriter.Writer)
-	w.Init(os.Stdout, 0, 8, 0, '\t', 0)
 	for id, resource := range resources {
-		endpoints := resource.BuildEndpoints()
+		endpoints, err := resource.BuildEndpoints()
+		if err != nil {
+			panic(err)
+		}
 		if len(endpoints) < 1 {
 			continue
 		}
-		fmt.Fprintf(w, "\n%s (%s)\n", resource.Name, id)
+		fmt.Printf("\n# %s (%s)\n", resource.Name, id)
 		for _, endpoint := range endpoints {
 			querystring := ""
 			for _, param := range endpoint.Params {
@@ -38,8 +39,16 @@ func main() {
 			if querystring != "" {
 				querystring = "?" + querystring
 			}
-			fmt.Fprintf(w, "\t%s /%s\t%s\n", endpoint.Verb, endpoint.Path+querystring, endpoint.Name)
+			req := make([]byte, 0)
+			if len(endpoint.SampleRequest) > 0 {
+				var buf bytes.Buffer
+				err := json.Indent(&buf, endpoint.SampleRequest, "\t", "  ")
+				if err != nil {
+					panic(err)
+				}
+        req = append(buf.Bytes(), []byte("\n")...)
+			}
+			fmt.Printf("## %s\n\n### Request\n\n%s /%s\n\n\t%s\n", endpoint.Name, endpoint.Verb, endpoint.Path+querystring, req)
 		}
 	}
-	w.Flush()
 }

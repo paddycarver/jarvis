@@ -44,7 +44,6 @@ type Interaction struct {
 	Description string     `yaml:"description"`
 	Params      []Property `yaml:"params,omitempty"`      // Properties passed as URL params
 	AcceptMany  bool       `yaml:"accept_many,omitempty"` // expect an array, not a single resource
-
 }
 
 // ParseFile will read the specified resource file and parse it into a Resource, which is then returned.
@@ -154,4 +153,14 @@ func getResourcePath(path string) string {
 		return ""
 	}
 	return path[0:index]
+}
+
+// HasPerm is a helper function that tests whether the passed in permission is present in the property's permissions list.
+func (p Property) HasPerm(perm string) bool {
+	for _, can := range p.Permissions {
+		if strings.ToLower(perm) == strings.ToLower(can) {
+			return true
+		}
+	}
+	return false
 }
