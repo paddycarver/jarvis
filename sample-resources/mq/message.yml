@@ -59,7 +59,6 @@ interactions:
     type: string
     description: The ID of a message to be deleted.
     repeated: true
-    default: ""
 - id: peek
   name: Peek at Messages
   verb: list
