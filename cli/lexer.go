@@ -235,12 +235,12 @@ func lexArg(l *lexer) stateFunc {
 				return l.errorf("Bad argument syntax: expected a space or end of input after the closing quote.")
 			}
 			return lexSpace
-    default:
-      if r == '"' {
-        isTerminator = func(r rune) bool {
-          return r == '"'
-        }
-      }
+		default:
+			if r == '"' {
+				isTerminator = func(r rune) bool {
+					return r == '"'
+				}
+			}
 		}
 	}
 	panic("Should never be reached.")
