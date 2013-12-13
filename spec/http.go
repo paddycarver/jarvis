@@ -1,9 +1,10 @@
-package apidef
+package spec
 
 import (
 	"crypto/rand"
 	"encoding/base64"
 	"encoding/json"
+	"github.com/paddyforan/jarvis/parse"
 	"math/big"
 	"strings"
 	"time"
@@ -13,7 +14,7 @@ import (
 type Endpoint struct {
 	Verb           string
 	Path           string
-	Params         []Property
+	Params         []parse.Property
 	Description    string
 	Name           string
 	SampleRequest  []byte
@@ -48,11 +49,11 @@ func getHTTPVerb(verb string) string {
 }
 
 // BuildEndpoints examines the resource it is called on and uses its properties to create and return a slice of endpoints.
-func (r Resource) BuildEndpoints() ([]Endpoint, error) {
+func BuildEndpoints(r parse.Resource) ([]Endpoint, error) {
 	endpoints := make([]Endpoint, len(r.Interactions))
 	for i, interaction := range r.Interactions {
 		if expectBody(interaction.Verb) {
-			req, err := r.buildSampleRequest(&interaction)
+			req, err := buildSampleRequest(r, &interaction)
 			if err != nil {
 				return endpoints, err
 			}
@@ -63,16 +64,16 @@ func (r Resource) BuildEndpoints() ([]Endpoint, error) {
 		endpoints[i].Description = interaction.Description
 		endpoints[i].Name = interaction.Name
 		endpoints[i].Params = interaction.Params
-		endpoints[i].Path = r.BuildPath(&interaction)
+		endpoints[i].Path = BuildPath(r, &interaction)
 	}
 	return endpoints, nil
 }
 
 // BuildPathPieces examines the resource it is called on (and that resource's parents) to create the pieces of the URL endpoint for the supplied interaction.
-func (r Resource) BuildPathPieces(i *Interaction) []string {
+func BuildPathPieces(r parse.Resource, i *parse.Interaction) []string {
 	var pieces []string
 	if r.Parent != nil {
-		pieces = append(pieces, r.Parent.BuildPathPieces(nil)...)
+		pieces = append(pieces, BuildPathPieces(*r.Parent, nil)...)
 		if !r.ParentIsCollection {
 			pieces = append(pieces, "{"+r.Parent.URLSlug+"}")
 		}
@@ -86,11 +87,11 @@ func (r Resource) BuildPathPieces(i *Interaction) []string {
 }
 
 // BuildPath examines the resource it is called on (and that resource's parents) to create the URL endpoint for the supplied interaction.
-func (r Resource) BuildPath(i *Interaction) string {
-	return strings.Join(r.BuildPathPieces(i), "/")
+func BuildPath(r parse.Resource, i *parse.Interaction) string {
+	return strings.Join(BuildPathPieces(r, i), "/")
 }
 
-func (r Resource) buildSampleRequest(i *Interaction) ([]byte, error) {
+func buildSampleRequest(r parse.Resource, i *parse.Interaction) ([]byte, error) {
 	data := make([]byte, 0)
 	if !expectBody(i.Verb) {
 		return data, nil
@@ -109,7 +110,7 @@ func (r Resource) buildSampleRequest(i *Interaction) ([]byte, error) {
 			if !property.HasPerm("w") {
 				continue // if we can't write the property, don't include it in the request
 			}
-			val, err := property.genRandomValue()
+			val, err := genRandomValue(&property)
 			if err != nil {
 				return data, err
 			}
@@ -134,7 +135,7 @@ func (r Resource) buildSampleRequest(i *Interaction) ([]byte, error) {
 	return json.Marshal(request)
 }
 
-func (p *Property) genRandomValue() (interface{}, error) {
+func genRandomValue(p *parse.Property) (interface{}, error) {
 	if p.Default != nil {
 		include, err := genRandomBool()
 		if err != nil {

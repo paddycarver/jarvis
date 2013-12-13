@@ -1,4 +1,4 @@
-package apidef
+package parse
 
 import (
 	"errors"

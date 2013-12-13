@@ -1,4 +1,4 @@
-package apidef
+package spec
 
 import (
 	"testing"
